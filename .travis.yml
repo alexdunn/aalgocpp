@@ -42,7 +42,7 @@ install: # Build
     - cmake . && make
     - ./algorithmscpp
 # Memory Sanitizer
-    - exprort ASAN=
+    - export ASAN=
     - export MSAN="ON"
     - cmake . && make
     - ./algorithmscpp
