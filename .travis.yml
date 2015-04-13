@@ -1,8 +1,9 @@
 language: cpp
 
+compiler:
+    - clang
+
 matrix:
-    compiler:
-        - clang
     env:
         - ASAN="ON"
         - MSAN="ON"
