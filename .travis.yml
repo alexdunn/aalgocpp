@@ -18,7 +18,6 @@ install:
     - cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so
     - sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd
     - sudo ldconfig
-    - ldconfig -p
 # Build and install libc++abi
     - svn co http://llvm.org/svn/llvm-project/libcxxabi/trunk libcxxabi
     - cd libcxxabi/lib
