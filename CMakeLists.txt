@@ -21,7 +21,6 @@ if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
 endif()
 include(${CPM_DIR}/CPM.cmake)
 
-
 #------------------------------------------------------------------------------
 # CPM Modules
 #------------------------------------------------------------------------------
@@ -40,21 +39,24 @@ CPM_Finish()
 aux_source_directory("${PROJECT_SOURCE_DIR}/src" SOURCES)
 aux_source_directory("${PROJECT_SOURCE_DIR}/tests" TESTS)
 set(SOURCES "${SOURCES};${TESTS}") # I want to also compile all unit tests into the binary
-
 include_directories ("${PROJECT_SOURCE_DIR}/src")
 
 #-----------------------------------------------------------------------
 # Compile Settings
 #-----------------------------------------------------------------------
 
-#set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")  # Make the compile_commands.json file for YouCompleteMe
 set(CMAKE_CXX_FLAGS_INIT "-Wall -Wextra -Werror")
-set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 --coverage") # Generate code coverage data
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage") # Generate code coverage data
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory,thread,undefined,undefined-trap,address,integer -fno-omit-frame-pointer")
+endif()
 
 #-----------------------------------------------------------------------
 # Setup executable
 #-----------------------------------------------------------------------
+
 set(EXE_NAME algorithmscpp)
 add_executable(${EXE_NAME} ${SOURCES})
 target_link_libraries(${EXE_NAME} ${CPM_LIBRARIES})
