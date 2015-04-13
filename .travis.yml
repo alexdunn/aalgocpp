@@ -6,7 +6,7 @@ compiler:
 notifications:
   email: false
 
-install:
+before_install: # Prepare system
 # Install C++11-compatible clang-3.6
     - sudo add-apt-repository 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.6 main'
     - sudo add-apt-repository 'deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu precise main'
@@ -35,12 +35,12 @@ install:
     - cd .. && sudo cp -r include/* /usr/include/c++/v1/
     - export CXX="clang++-3.6"
 
-script:
+install: # Build
     - cd $TRAVIS_BUILD_DIR
     - export CXXFLAGS="-std=c++11 -stdlib=libc++"
     - cmake . && make
 
-after_success:
+script: # Test
     - ./algorithmscpp   # Run unit tests
     - coveralls -t LCXV38Owi5bu4dMU00rn5eWzoEPYXyupF -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
 
