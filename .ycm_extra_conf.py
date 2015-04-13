@@ -5,23 +5,22 @@ flags = [
     '-Wall',
     '-Wextra',
     '-Werror',
-    # '-Wno-long-long',
-    # '-Wno-variadic-macros',
+    '-stdlib=libc++'
     '-fexceptions',
     '-DNDEBUG',
     '-std=c++11',
     '-x',
     'c++',
     '-isystem',
-    '../BoostParts',
+    '/local/algorithmscpp/build/cpm-packages/modules/github_iauns_cpmgoogletest_102/src/3rdParty/gtest/include',
     '-isystem',
-    '/System/Library/Frameworks/Python.framework/Headers',
+    '/local/algorithmscpp/build/cpm-packages/modules/github_iauns_cpmgoogletest_102/src',
     '-isystem',
-    '../llvm/include',
-    '-isystem',
-    '../llvm/tools/clang/include',
+    '/local/algorithmscpp/build/cpm-packages/modules/github_iauns_cpmgoogletest_102/src/3rdParty',
     '-I',
     '.',
+    '-I',
+    './src',
 ]
 
 
@@ -35,7 +34,8 @@ flags = [
 #
 # Most projects will NOT need to set this to anything; you can just change the
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
-compilation_database_folder = '/local/algorithmscpp/build'
+# compilation_database_folder = '/local/algorithmscpp/build'
+compilation_database_folder = ''
 
 if os.path.exists(compilation_database_folder):
     database = ycm_core.CompilationDatabase(compilation_database_folder)

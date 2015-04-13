@@ -21,6 +21,14 @@ if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
 endif()
 include(${CPM_DIR}/CPM.cmake)
 
+
+#------------------------------------------------------------------------------
+# Coverals
+#------------------------------------------------------------------------------
+# Add project cmake modules to path.
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/coveralls-cmake/cmake)
+include(Coveralls)
+
 #------------------------------------------------------------------------------
 # CPM Modules
 #------------------------------------------------------------------------------
@@ -36,20 +44,32 @@ CPM_Finish()
 # Setup source
 #-----------------------------------------------------------------------
 
-set (Sources src/main.cpp src/sorting.cpp)
+aux_source_directory("${PROJECT_SOURCE_DIR}/src" SOURCES)
+set(COVERAGE_SRCS "${SOURCES}")
+aux_source_directory("${PROJECT_SOURCE_DIR}/tests" TESTS) # I want to compile only the srcs for coveralls
+set(SOURCES "${SOURCES};${TESTS}") # I want to also compile all unit tests into the binary
+
+include_directories ("${PROJECT_SOURCE_DIR}/src")
+
+# Create the coveralls target.
+coveralls_setup(
+    "${COVERAGE_SRCS}" # The source files.
+    ON                 # If we should upload.
+    "${PROJECT_SOURCE_DIR}/coveralls-cmake/cmake") # (Optional) Alternate project cmake module path.
 
 #-----------------------------------------------------------------------
 # Compile Settings
 #-----------------------------------------------------------------------
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")  # Make the compile_commands.json file for YouCompleteMe
-set(CMAKE_CXX_FLAGS_INIT "-Wall -Werror")
+#set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")  # Make the compile_commands.json file for YouCompleteMe
+set(CMAKE_CXX_FLAGS_INIT "-Wall -Wextra -Werror")
 set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 --coverage") # Generate code coverage data
 
 #-----------------------------------------------------------------------
 # Setup executable
 #-----------------------------------------------------------------------
 set(EXE_NAME algorithmscpp)
-add_executable(${EXE_NAME} ${Sources})
+add_executable(${EXE_NAME} ${SOURCES})
 target_link_libraries(${EXE_NAME} ${CPM_LIBRARIES})
 
