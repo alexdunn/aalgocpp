@@ -1,5 +1,7 @@
 language: cpp
 
+compiler: clang
+
 notifications:
   email: false
 
@@ -35,18 +37,22 @@ before_install: # Prepare system
 install: # Build
     - cd $TRAVIS_BUILD_DIR
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
-
-compiler: clang
-matrix:
-    include:
-        - env: ASAN="ON"
-        - env: MSAN="ON"
-        - env: TSAN="ON"
-script: # Test
+# Address Sanitizer
+    - export ASAN="ON"
+    - cmake . && make
+    - ./algorithmscpp
+# Memory Sanitizer
+    - exprort ASAN=
+    - export MSAN="ON"
+    - cmake . && make
+    - ./algorithmscpp
+# Thread Sanitizer
+    - export MSAN=
+    - export TSAN="ON"
     - cmake . && make
     - ./algorithmscpp
 
-after_success:
+script:
     - coveralls -t LCXV38Owi5bu4dMU00rn5eWzoEPYXyupF -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
 
 branches:
