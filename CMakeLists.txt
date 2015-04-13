@@ -55,14 +55,17 @@ endif()
 
 if ($ENV{ASAN} MATCHES "ON")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+    message("ADDRESS SANITIZER ON")
 endif()
 
 if ($ENV{MSAN} MATCHES "ON")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory")
+    message("MEMORY SANITIZER ON")
 endif()
 
 if ($ENV{TSAN} MATCHES "ON")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread")
+    message("THREAD SANITIZER ON")
 endif()
 
 #-----------------------------------------------------------------------
