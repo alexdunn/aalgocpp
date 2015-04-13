@@ -37,7 +37,7 @@ install:
 
 script:
     - cd $TRAVIS_BUILD_DIR
-    - export CXXFLAGS="-std=c++11 -stdlib=libc++ -lc++abi"
+    - export CXXFLAGS="-std=c++11 -stdlib=libc++"
     - cmake . && make
 
 after_success:
