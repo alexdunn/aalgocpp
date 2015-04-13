@@ -1,14 +1,5 @@
 language: cpp
 
-compiler:
-    - clang
-
-matrix:
-    env:
-        - ASAN="ON"
-        - MSAN="ON"
-        - TSAN="ON"
-
 notifications:
   email: false
 
@@ -44,10 +35,18 @@ before_install: # Prepare system
 install: # Build
     - cd $TRAVIS_BUILD_DIR
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
-    - cmake . && make
 
+compiler: clang
+matrix:
+    include:
+        - env: ASAN="ON"
+        - env: MSAN="ON"
+        - env: TSAN="ON"
 script: # Test
-    - ./algorithmscpp   # Run unit tests
+    - cmake . && make
+    - ./algorithmscpp
+
+after_success:
     - coveralls -t LCXV38Owi5bu4dMU00rn5eWzoEPYXyupF -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
 
 branches:
