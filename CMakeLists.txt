@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(algorithmscpp)
 
-message($ENV{TRAVIS_JOB_ID})
-
 #------------------------------------------------------------------------------
 # Required CPM Setup - no need to modify - See: https://github.com/iauns/cpm
 #------------------------------------------------------------------------------
@@ -25,13 +23,6 @@ include(${CPM_DIR}/CPM.cmake)
 
 
 #------------------------------------------------------------------------------
-# Coverals
-#------------------------------------------------------------------------------
-# Add project cmake modules to path.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/coveralls-cmake/cmake)
-include(Coveralls)
-
-#------------------------------------------------------------------------------
 # CPM Modules
 #------------------------------------------------------------------------------
 
@@ -47,17 +38,10 @@ CPM_Finish()
 #-----------------------------------------------------------------------
 
 aux_source_directory("${PROJECT_SOURCE_DIR}/src" SOURCES)
-set(COVERAGE_SRCS "${SOURCES}")
-aux_source_directory("${PROJECT_SOURCE_DIR}/tests" TESTS) # I want to compile only the srcs for coveralls
+aux_source_directory("${PROJECT_SOURCE_DIR}/tests" TESTS)
 set(SOURCES "${SOURCES};${TESTS}") # I want to also compile all unit tests into the binary
 
 include_directories ("${PROJECT_SOURCE_DIR}/src")
-
-# Create the coveralls target.
-coveralls_setup(
-    "${COVERAGE_SRCS}" # The source files.
-    ON                 # If we should upload.
-    "${PROJECT_SOURCE_DIR}/coveralls-cmake/cmake") # (Optional) Alternate project cmake module path.
 
 #-----------------------------------------------------------------------
 # Compile Settings

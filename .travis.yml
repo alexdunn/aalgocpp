@@ -36,8 +36,7 @@ script:
 
 after_success:
     - ./algorithmscpp   # Run unit tests
-    - make coveralls    # Send coverage to Coveralls
-    - coveralls --exclude lib --exclude tests --exclude-pattern "*/Applications/*" --gcov-options '\-lp'
+    - coveralls -t LCXV38Owi5bu4dMU00rn5eWzoEPYXyupF -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
 
 branches:
     only:
