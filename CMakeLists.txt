@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 project(algorithmscpp)
 
+message($ENV{TRAVIS_JOB_ID})
+
 #------------------------------------------------------------------------------
 # Required CPM Setup - no need to modify - See: https://github.com/iauns/cpm
 #------------------------------------------------------------------------------
