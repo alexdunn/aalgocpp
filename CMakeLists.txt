@@ -46,7 +46,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/src")
 #-----------------------------------------------------------------------
 
 set(CMAKE_CXX_FLAGS_INIT "-Wall -Wextra -Werror")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -stdlib=libc++")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage") # Generate code coverage data
