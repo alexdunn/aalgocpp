@@ -3,6 +3,9 @@ language: cpp
 compiler:
     - clang
 
+notifications:
+  email: false
+
 install:
 # Install C++11-compatible clang-3.6
     - sudo add-apt-repository 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.6 main'
