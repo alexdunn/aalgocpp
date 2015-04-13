@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/alexdunn/algorithmscpp.svg?branch=master)](https://travis-ci.org/alexdunn/algorithmscpp)
 ### Build
 - Install cmake with `brew install cmake`
 - `cmake && make`
