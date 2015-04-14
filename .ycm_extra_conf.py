@@ -13,9 +13,9 @@ flags = [
     '-x',
     'c++',
     '-I',
-    '/local/algorithmscpp/bii/deps/google/gtest/include',
+    'bii/deps/google/gtest/include',
     '-I',
-    './src',
+    'src',
 ]
 
 
