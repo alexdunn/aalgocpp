@@ -11,11 +11,11 @@ SET(ENV{CXXFLAGS} "-std=c++14 -stdlib=libc++")
 #TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE "-std=c++14" "-stdlib=libc++")
 
 # Compiler flags for only my target
-TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-pedantic-errors" "-fexceptions" "-ftrapv" "-Wall" "-Wextra" "-Werror")
+TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-g -O0 -pedantic-errors" "-fexceptions" "-ftrapv" "-Wall" "-Wextra" "-Werror")
 
 # Environment conditional compiler flags, typically run only on Travis CI
-if ($ENV{TRAVIS})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
+if ($ENV{COVERAGE})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
     message("COVERAGE ON")
 endif()
 
@@ -32,7 +32,7 @@ if ($ENV{SAN} MATCHES "A")
 endif()
 
 if ($ENV{SAN} MATCHES "M")
-    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fPIC -fsanitize=memory")
+    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fPIC" "-fsanitize=memory")
     SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=memory")
     message("MEMORY SANITIZER ON")
 endif()

@@ -50,8 +50,6 @@ install: # Build
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
     - export LDFLAGS="$LDFLAGS -lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)"
     - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
-# No sanitizers
-    - build_and_test
 # Undefined Sanitizers
     - export SAN="U"
     - build_and_test
@@ -64,6 +62,7 @@ install: # Build
     - build_and_test
 # Thread Sanitizer
     - export SAN="T"
+    - export COVERAGE=true
     - build_and_test
 
 script:
