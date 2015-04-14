@@ -32,7 +32,7 @@ if ($ENV{SAN} MATCHES "A")
 endif()
 
 if ($ENV{SAN} MATCHES "M")
-    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=memory")
+    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fPIC -fsanitize=memory")
     SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=memory")
     message("MEMORY SANITIZER ON")
 endif()
