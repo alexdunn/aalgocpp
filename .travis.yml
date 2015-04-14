@@ -22,6 +22,7 @@ before_install: # Prepare system
 # Coveralls Code Coverage
     - sudo pip install cpp-coveralls
 # Build and install libc++
+    - cd
     - export CXXFLAGS="-std=c++0x -stdlib=libc++"
     - svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx
     - cd libcxx/lib && bash buildit
