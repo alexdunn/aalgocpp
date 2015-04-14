@@ -57,6 +57,7 @@ install: # Build
     - build_and_test
 # Address Sanitizer
     - export SAN="A"
+    - export ASAN_OPTIONS="detect_leaks=1" # Enable leak sanitizer
     - build_and_test
 # Memory Sanitizer
     - export SAN="M"
