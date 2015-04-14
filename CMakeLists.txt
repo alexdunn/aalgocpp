@@ -15,25 +15,31 @@ TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-pedantic-errors" "-fexcep
 
 # Environment conditional compiler flags, typically run only on Travis CI
 if ($ENV{TRAVIS})
-    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=undefined,undefined-trap,integer" "-fno-omit-frame-pointer")
+    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fno-omit-frame-pointer")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-g" "-O0" "--coverage")
+endif()
+
+if ($ENV{SAN} MATCHES "U")
+    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=undefined,undefined-trap,integer")
+    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=address")
+    message("ADDRESS SANITIZER ON")
 endif()
 
 if ($ENV{SAN} MATCHES "A")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=address")
-    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-fsanitize=address")
+    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=address")
     message("ADDRESS SANITIZER ON")
 endif()
 
 if ($ENV{MSAN} MATCHES "M")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=memory")
-    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-fsanitize=memory")
+    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=memory")
     message("MEMORY SANITIZER ON")
 endif()
 
 if ($ENV{TSAN} MATCHES "T")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=thread")
-    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-fsanitize=thread")
+    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=thread")
     message("THREAD SANITIZER ON")
 endif()
 

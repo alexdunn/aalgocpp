@@ -49,6 +49,11 @@ install: # Build
     - bii init -L
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
     - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
+# No sanitizers
+    - build_and_test
+# Undefined Sanitizers
+    - export SAN="U"
+    - build_and_test
 # Address Sanitizer
     - export SAN="A"
     - build_and_test
