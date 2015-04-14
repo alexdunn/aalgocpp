@@ -4,8 +4,11 @@ ADD_BII_TARGETS()
 # Rename the output binary
 SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES OUTPUT_NAME algorithmscpp)
 
-# Compiler flags for all targets
-TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE "-std=c++14" "-stdlib=libc++")
+# Build environment settings for C++ to apply to all my targets as well as third party packages
+SET(ENV{CXX} usr/local/bin/clang++-3.6)
+SET(ENV{CXXFLAGS} "-std=c++14 -stdlib=libc++")
+
+#TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE "-std=c++14" "-stdlib=libc++")
 
 # Compiler flags for only my target
 TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-pedantic-errors" "-fexceptions" "-ftrapv" "-Wall" "-Wextra" "-Werror")
