@@ -15,15 +15,13 @@ TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-pedantic-errors" "-fexcep
 
 # Environment conditional compiler flags, typically run only on Travis CI
 if ($ENV{TRAVIS})
-    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fno-omit-frame-pointer")
-    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-g" "-O0" "--coverage")
-    SET(ENV{CXXFLAGS} "-fno-omit-frame-pointer -g -O0 --coverage")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
 endif()
 
 if ($ENV{SAN} MATCHES "U")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=undefined,undefined-trap,integer")
     SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=address")
-    message("ADDRESS SANITIZER ON")
+    message("UNDEFINED SANITIZER ON")
 endif()
 
 if ($ENV{SAN} MATCHES "A")
