@@ -11,7 +11,7 @@ SET(ENV{CXXFLAGS} "-std=c++14 -stdlib=libc++")
 #TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE "-std=c++14" "-stdlib=libc++")
 
 # Compiler flags for only my target
-TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-g -O0 -pedantic-errors" "-fexceptions" "-ftrapv" "-Wall" "-Wextra" "-Werror")
+TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-g" "-O0" "-pedantic-errors" "-fexceptions" "-ftrapv" "-Wall" "-Wextra" "-Werror")
 
 # Environment conditional compiler flags, typically run only on Travis CI
 if ($ENV{COVERAGE})
