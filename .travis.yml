@@ -33,24 +33,23 @@ before_install: # Prepare system
     - sudo ln -s /usr/lib/libc++abi.so.1 /usr/lib/libc++abi.so
     - cd .. && sudo cp -r include/* /usr/include/c++/v1/
     - export CXX="clang++-3.6"
+# biicode package manager
+    - cd && wget http://apt.biicode.com/install.sh && chmod +x install.sh && ./install.sh
 
 install: # Build
     - cd $TRAVIS_BUILD_DIR
-    - export CXXFLAGS="-std=c++14 -stdlib=libc++"
 # Address Sanitizer
-    - export ASAN="ON"
-    - cmake . && make
-    - ./algorithmscpp
+    - export SAN="A"
+    - bii build
+    - ./bin/algorithmscpp
 # Memory Sanitizer
-    - export ASAN=
-    - export MSAN="ON"
-    - cmake . && make
-    - ./algorithmscpp
+    - export SAN="M"
+    - bii build
+    - ./bin/algorithmscpp
 # Thread Sanitizer
-    - export MSAN=
-    - export TSAN="ON"
-    - cmake . && make
-    - ./algorithmscpp
+    - export SAN="T"
+    - bii build
+    - ./bin/algorithmscpp
 
 script:
     - coveralls -t LCXV38Owi5bu4dMU00rn5eWzoEPYXyupF -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'

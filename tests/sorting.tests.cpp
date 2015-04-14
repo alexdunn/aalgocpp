@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include "sorting.h"
+#include "gtest/gtest.h"
 
 TEST(InsertionSort, Test)
 {
