@@ -48,7 +48,7 @@ install: # Build
     - cd $TRAVIS_BUILD_DIR
     - bii init -L
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
-    - build_and_test() { bii build -- VERBOSE=1; ./bin/algorithmscpp; }
+    - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
 # Address Sanitizer
     - export SAN="A"
     - build_and_test
