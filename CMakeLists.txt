@@ -4,11 +4,7 @@ ADD_BII_TARGETS()
 # Rename the output binary
 SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES OUTPUT_NAME algorithmscpp)
 
-# Build environment settings for C++ to apply to all my targets as well as third party packages
-SET(ENV{CXX} usr/local/bin/clang++-3.6)
-SET(ENV{CXXFLAGS} "-std=c++14 -stdlib=libc++")
-
-#TARGET_COMPILE_OPTIONS(${BII_BLOCK_TARGET} INTERFACE "-std=c++14" "-stdlib=libc++")
+# Note: Setting the environment variables CXX, CXXFLAGS, or LDFLAGS at this point is not useful.  cmake has already configured these things by the time it gets here
 
 # Compiler flags for only my target
 TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-g" "-O0" "-pedantic-errors" "-fexceptions" "-ftrapv" "-Wall" "-Wextra" "-Werror")
