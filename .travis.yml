@@ -47,7 +47,8 @@ before_install: # Prepare system
 install: # Build
     - cd $TRAVIS_BUILD_DIR
     - bii init -L
-    - build_and_test() { scan-build-3.6 -enable-checker security.FloatLoopCounter bii build -- VERBOSE=1; ./bin/algorithmscpp; }
+    - export CXXFLAGS="-std=c++14 -stdlib=libc++"
+    - build_and_test() { bii build -- VERBOSE=1; ./bin/algorithmscpp; }
 # Address Sanitizer
     - export SAN="A"
     - build_and_test
