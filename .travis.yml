@@ -38,6 +38,7 @@ before_install: # Prepare system
 
 install: # Build
     - cd $TRAVIS_BUILD_DIR
+    - bii init -L
 # Address Sanitizer
     - export SAN="A"
     - bii build
