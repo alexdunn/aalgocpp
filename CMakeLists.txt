@@ -17,6 +17,7 @@ TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PUBLIC "-pedantic-errors" "-fexcep
 if ($ENV{TRAVIS})
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fno-omit-frame-pointer")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-g" "-O0" "--coverage")
+    SET(ENV{CXXFLAGS} "-fno-omit-frame-pointer -g -O0 --coverage")
 endif()
 
 if ($ENV{SAN} MATCHES "U")
