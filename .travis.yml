@@ -43,6 +43,8 @@ before_install: # Prepare system
     - export CXX="clang++-3.6"
 # biicode package manager
     - cd && wget http://apt.biicode.com/install.sh && chmod +x install.sh && ./install.sh
+# flawfinder C++ linter
+    - sudo apt-get install flawfinder
 
 install: # Build
     - cd $TRAVIS_BUILD_DIR
@@ -53,6 +55,7 @@ install: # Build
 # Undefined Sanitizers
     - export SAN="U"
     - build_and_test
+    - ./lint_and_analyze.sh
 # Address Sanitizer
     - export SAN="A"
     - export ASAN_OPTIONS="detect_leaks=1" # Enable leak sanitizer
