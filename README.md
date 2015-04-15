@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/alexdunn/algorithmscpp.svg?branch=master)](https://travis-ci.org/alexdunn/algorithmscpp)
+[![Build Status](https://travis-ci.org/alexdunn/aalgocpp.svg?branch=master)](https://travis-ci.org/alexdunn/aalgocpp)
 [![Coverage Status](https://coveralls.io/repos/alexdunn/aalgocpp/badge.svg)](https://coveralls.io/r/alexdunn/aalgocpp)
 ### Build
 - Install cmake with `brew install cmake`
