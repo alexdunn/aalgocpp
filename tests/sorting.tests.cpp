@@ -1,4 +1,4 @@
-#include "sorting.h"
+#include "sorting.hpp"
 #include "gtest/gtest.h"
 
 TEST(InsertionSort, Test)
