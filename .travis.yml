@@ -52,14 +52,11 @@ install: # Build
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
     - export LDFLAGS="$LDFLAGS -lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)"
     - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
-# Undefined Sanitizers
-    - export SAN="U"
-    - build_and_test
-    - ./lint_and_analyze.sh
-# Address Sanitizer
-    - export SAN="A"
+# Undefined and Address Sanitizers
+    - export SAN="UA"
     - export ASAN_OPTIONS="detect_leaks=1" # Enable leak sanitizer
     - build_and_test
+    - ./lint_and_analyze.sh
 # Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
     #- export SAN="M"
     #- build_and_test
