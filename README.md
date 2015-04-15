@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/alexdunn/algorithmscpp.svg?branch=master)](https://travis-ci.org/alexdunn/algorithmscpp)
-[![Coverage Status](https://coveralls.io/repos/alexdunn/algorithmscpp/badge.svg)](https://coveralls.io/r/alexdunn/algorithmscpp)
+[![Coverage Status](https://coveralls.io/repos/alexdunn/aalgocpp/badge.svg)](https://coveralls.io/r/alexdunn/aalgocpp)
 ### Build
 - Install cmake with `brew install cmake`
 - Install the package manager bii with `brew cask install biicode`

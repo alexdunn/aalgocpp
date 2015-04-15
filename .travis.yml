@@ -66,7 +66,7 @@ install: # Build
     - build_and_test
 
 script:
-    - coveralls -t LCXV38Owi5bu4dMU00rn5eWzoEPYXyupF -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
+    - coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
 
 branches:
     only:
