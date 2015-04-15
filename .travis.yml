@@ -66,9 +66,24 @@ install: # Build
     - build_and_test
 
 script:
-    - coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'; fi
 
 branches:
     only:
         - master
+
+# Coverity Scan
+env:
+  global:
+   - secure: "hKt8ooWMkekrEhd++Opo+yjyfTyNLYrwDQM+FsinE5QNIiJ5pakUnwtDf6wgDlqImJRklctxRkrHI4lSQnS483aaemcCHjH/1wxvrE3SlGza8oFZS/yQ1tj6P1J9u5WmaB9fVEvxTLAa3by8d1bUTgaGjZrt4WemOV1Qz6MtGo4="
+
+addons:
+  coverity_scan:
+    project:
+      name: "alexdunn/aalgocpp"
+      description: "Build submitted via Travis CI"
+    notification_email: worthless.trash.junk@icloud.com
+    build_command_prepend: "bii configure"
+    build_command:   "CXX=clang++-3.6 CXXFLAGS=\"-std=c++14 -stdlib=libc++\" bii build"
+    branch_pattern: coverity_scan
 
