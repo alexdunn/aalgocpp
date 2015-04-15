@@ -57,9 +57,9 @@ install: # Build
     - export SAN="A"
     - export ASAN_OPTIONS="detect_leaks=1" # Enable leak sanitizer
     - build_and_test
-# Memory Sanitizer
-    - export SAN="M"
-    - build_and_test
+# Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
+    #- export SAN="M"
+    #- build_and_test
 # Thread Sanitizer
     - export SAN="T"
     - export COVERAGE=true

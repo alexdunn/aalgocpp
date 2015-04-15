@@ -27,11 +27,12 @@ if ($ENV{SAN} MATCHES "A")
     message("ADDRESS SANITIZER ON")
 endif()
 
-if ($ENV{SAN} MATCHES "M")
-    TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fPIC" "-fsanitize=memory")
-    SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=memory")
-    message("MEMORY SANITIZER ON")
-endif()
+# Disable memory sanitizer for another time since it requires building 
+#if ($ENV{SAN} MATCHES "M")
+    #TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fPIC" "-fsanitize=memory")
+    #SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=memory")
+    #message("MEMORY SANITIZER ON")
+#endif()
 
 if ($ENV{SAN} MATCHES "T")
     TARGET_COMPILE_OPTIONS(${BII_src_main_TARGET} PRIVATE "-fsanitize=thread")
