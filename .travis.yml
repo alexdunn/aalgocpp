@@ -5,7 +5,7 @@ compiler: clang
 notifications:
   email: false
 
-before_install: # Prepare system
+install: # Prepare system
 # Update cmake
     - cd
     - wget http://www.cmake.org/files/v3.2/cmake-3.2.1-Linux-x86_64.tar.gz
@@ -45,12 +45,13 @@ before_install: # Prepare system
     - cd && wget http://apt.biicode.com/install.sh && chmod +x install.sh && ./install.sh
 # flawfinder C++ linter
     - sudo apt-get install flawfinder
-
-install: # Build
+# Initialize  Project
     - cd $TRAVIS_BUILD_DIR
     - bii init -L
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
     - export LDFLAGS="$LDFLAGS -lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)"
+
+script: # Build and Test
     - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
 # Undefined and Address Sanitizers
     - export SAN="UA"
@@ -65,7 +66,7 @@ install: # Build
     - export COVERAGE=true
     - build_and_test
 
-script:
+after_success:
     - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'; fi
 
 branches:
