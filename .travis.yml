@@ -71,6 +71,7 @@ script:
 branches:
     only:
         - master
+        - coverity_scan
 
 # Coverity Scan
 env:
