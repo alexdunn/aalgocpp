@@ -1,7 +1,7 @@
 #include "scheduling.hpp"
 #include "gtest/gtest.h"
 
-TEST(JobOverlap, Test)
+TEST(JobClass, Overlap)
 {
     aalgo::Job a = aalgo::Job(3, 6);
     aalgo::Job b = aalgo::Job(1, 4);
@@ -23,6 +23,19 @@ TEST(JobOverlap, Test)
     EXPECT_FALSE(f.Overlap(a));
     EXPECT_FALSE(a.Overlap(g));
     EXPECT_FALSE(g.Overlap(a));
+}
+
+TEST(JobClass, EqualityOperator)
+{
+    aalgo::Job test1 = aalgo::Job(0, 20);
+    aalgo::Job test2 = aalgo::Job(0, 19);
+    EXPECT_FALSE(test1 == test2);
+
+    aalgo::Job test3 = aalgo::Job(20, 0);
+    EXPECT_FALSE(test3 == test1);
+
+    aalgo::Job test4 = aalgo::Job(0, 20);
+    EXPECT_TRUE(test1 == test4);
 }
 
 TEST(OptimalScheduling, Test)
