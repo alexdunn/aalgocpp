@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/alexdunn/aalgocpp.svg?branch=master)](https://travis-ci.org/alexdunn/aalgocpp)
 [![Coverage Status](https://coveralls.io/repos/alexdunn/aalgocpp/badge.svg)](https://coveralls.io/r/alexdunn/aalgocpp)
+
+## About
+This is a collection of algorithms written in C++14.  Many of the algorithms are from the textbook *The Algorithm Design Manual*.
+
 ## Build
 - Install cmake with `brew install cmake`
 - Install the package manager bii with `brew cask install biicode`
@@ -27,6 +31,12 @@ This project makes use of many tools to ensure code quality.  Because most of th
 - flaw-finder = static analysis tool that focuses on security.  This can be run by executing the lint_and_analyze.sh script in the project's root directory.
 - clang-modernize = Ensure that new C++11 functionality is being used where possible.  I have to run this manually on my source files.
 
-### Almost Working
+### Planned
 - Memory Sanitizer = I need to figure out how to apply the -fsanitize=memory flag to both dependencies and my targets, as well as link to an instrumented libc++, as well not build shared libraries
 - Coverity Scan = Code static analysis.  I need to get the running code up to 85% for the project to be accepted by Coverity Scan.
+- OCLint static analyzer
+- splint static analyzer
+- hfcca code complexity analyzer
+- pmd static analyzer and code duplication finder
+- Add some performance measurements
+
