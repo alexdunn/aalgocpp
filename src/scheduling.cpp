@@ -39,13 +39,11 @@ bool Job::Overlap(Job job)
 
 std::vector<aalgo::Job> optimalScheduling(std::vector<aalgo::Job> jobs)
 {
-    std::cout << "\n\n starting" << std::endl;
     std::vector<aalgo::Job> result;
 
     while (jobs.size() > 0)
     {
         aalgo::Job earliestEndingJob = jobs[0];
-        std::cout << "Setting " << earliestEndingJob << " as earliestEndingJob" << std::endl;
         int earliestEndingJobPosition = 0;
         int j = 0;
         for (auto job : jobs)
@@ -57,9 +55,7 @@ std::vector<aalgo::Job> optimalScheduling(std::vector<aalgo::Job> jobs)
             }
             ++j;
         }
-        std::cout << "Adding " << earliestEndingJob << " to the result" << std::endl;
         result.push_back(earliestEndingJob);
-        std::cout << "About to remove " << jobs[earliestEndingJobPosition] << std::endl;
         jobs.erase(jobs.begin() + earliestEndingJobPosition);
 
         // Remove all jobs that overlap with the one just added to the results

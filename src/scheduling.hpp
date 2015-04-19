@@ -21,7 +21,7 @@ public:
     friend std::ostream& operator<<(std::ostream &os, Job const &job);
 };
 
-// Given a set of intervals that are considered equally paying jobs of varying lengths of time, return the subset that is the optimal selection of jobs (intervals) that.  Provably correct algorithm that's reasonably efficient.
+// Given a set of intervals that are considered equally paying jobs of varying lengths of time, return the subset that is the optimal selection of jobs (intervals) that.  Provably correct algorithm that's reasonably efficient. This is from chapter 1 of The Algorithm Design Manual.
 std::vector<aalgo::Job> optimalScheduling(std::vector<aalgo::Job>);
 
 } // namespace aalgo
