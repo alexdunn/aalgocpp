@@ -49,16 +49,15 @@ install: # Prepare system
     - cd $TRAVIS_BUILD_DIR
     - bii init -L
     - export CXXFLAGS="-std=c++14 -stdlib=libc++"
+    - export LDFLAGS="-lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)"
 
 script: # Build and Test
     - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
 # Undefined and Address Sanitizers
     - export SAN="UA"
     - export ASAN_OPTIONS="detect_leaks=1" # Enable leak sanitizer
-    - export LDFLAGS="-fsanitize=address -lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)" # Make sure the static libraries are also compiled with this flag
     - build_and_test
     - ./lint_and_analyze.sh
-    - export LDFLAGS="-lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)"
 # Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
     #- export SAN="M"
     #- build_and_test
