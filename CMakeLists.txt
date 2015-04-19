@@ -17,6 +17,7 @@ endif()
 
 if ($ENV{SAN} MATCHES "UA")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined,undefined-trap,integer,unsigned-integer-overflow")
+    SET_TARGET_PROPERTIES(${BII_BLOCK_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=address")
     SET_TARGET_PROPERTIES(${BII_src_main_TARGET} PROPERTIES LINK_FLAGS "-g -fsanitize=address")
     message("UNDEFINED AND ADDRESS SANITIZERS ON")
 endif()
