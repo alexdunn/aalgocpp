@@ -26,7 +26,6 @@ int max_cycle_length(int i, int j)
     int max_length = 0;
     for (; i < j; ++i)
     {
-        std::cout << i << std::endl;
         int length = cycle_length(i);
         if (length > max_length)
         {
