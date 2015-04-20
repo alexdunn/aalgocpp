@@ -47,18 +47,18 @@ install: # Prepare system
     - cd $TRAVIS_BUILD_DIR
 
 script: # Build and Test
-    - build_and_test() { rm -rf build; ./build.sh; ./build/algorithmscpp; }
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then build_and_test() { rm -rf build; ./build.sh; ./build/algorithmscpp; }; fi
 # Undefined and Address Sanitizers
-    - export SAN="UA"
-    - build_and_test
-    - ./lint_and_analyze.sh
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then export SAN="UA"; fi
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then build_and_test; fi
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./lint_and_analyze.sh; fi 
 # Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
     #- export SAN="M"
     #- build_and_test
 # Thread Sanitizer
-    - export SAN="T"
-    - export COVERAGE=true
-    - build_and_test
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then export SAN="T"; fi
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then export COVERAGE=true; fi
+    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then build_and_test; fi
 
 after_success:
     - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'; fi
@@ -79,7 +79,7 @@ addons:
       name: "alexdunn/aalgocpp"
       description: "Build submitted via Travis CI"
     notification_email: worthless.trash.junk@icloud.com
-    build_command_prepend: "export CXXFLAGS=\"-std=c++11 -stdlib=libc++\"; ./get_deps.sh; mkdir build; cd build; cmake .."
+    build_command_prepend: "export CXXFLAGS='-std=c++11 -stdlib=libc++'; ./get_deps.sh; mkdir build; cd build; cmake .."
     build_command:   "make"
     branch_pattern: coverity_scan
 
