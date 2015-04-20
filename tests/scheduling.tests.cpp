@@ -38,6 +38,16 @@ TEST(JobClass, EqualityOperator)
     EXPECT_TRUE(test1 == test4);
 }
 
+TEST(JobClass, StreamOperator)
+{
+    aalgo::Job test = aalgo::Job(0, 20);
+    std::stringstream buffer;
+    buffer << test;
+    std::string expected = "Job(0, 20)";
+    std::string result = buffer.str();
+    EXPECT_TRUE(result.compare(expected) == 0) << "Expected |" << expected << "|\nGot |" << result << "|";
+}
+
 TEST(OptimalScheduling, Test)
 {
     std::vector<aalgo::Job> jobs1 = {aalgo::Job(0, 20), aalgo::Job(1, 3), aalgo::Job(5, 7), aalgo::Job(8, 10), aalgo::Job(11, 13)};
