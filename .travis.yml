@@ -71,7 +71,7 @@ branches:
 # Coverity Scan
 env:
   global:
-   - secure: "hKt8ooWMkekrEhd++Opo+yjyfTyNLYrwDQM+FsinE5QNIiJ5pakUnwtDf6wgDlqImJRklctxRkrHI4lSQnS483aaemcCHjH/1wxvrE3SlGza8oFZS/yQ1tj6P1J9u5WmaB9fVEvxTLAa3by8d1bUTgaGjZrt4WemOV1Qz6MtGo4="
+   - secure: "LCN318jdJNOlUGVMJ571Rq8M0tye1vP8CO4YIjFqCb/VtqvSZpiGVEVbuM5Pd5y2NlfWp5DR/Cy7mHh5wbaQ1HVHXjT0sE0f+sMk4V8YmVo6Nb5usrc/kt88xolhJZe//DnRykAOHb3oLEJsoJTAt32Wh8cPiSrKzrMzmQAFfVQ="
 
 addons:
   coverity_scan:
@@ -79,6 +79,7 @@ addons:
       name: "alexdunn/aalgocpp"
       description: "Build submitted via Travis CI"
     notification_email: worthless.trash.junk@icloud.com
-    build_command:   "./build.sh"
+    build_command_prepend: "export CXXFLAGS=\"-std=c++11 -stdlib=libc++\"; ./get_deps.sh; mkdir build; cd build; cmake .."
+    build_command:   "make"
     branch_pattern: coverity_scan
 

@@ -1,19 +1,12 @@
-if [ ! -d deps ]; then
-    mkdir deps
-fi
-cd deps
-if [ ! -f gtest-1.7.0.zip ]; then
-    wget https://googletest.googlecode.com/files/gtest-1.7.0.zip
-fi
-if [ ! -d gtest-1.7.0 ]; then
-    unzip ./gtest-1.7.0.zip
-fi
+./get_deps.sh
 
-cd ..
-mkdir build
+if [ ! -d build ]; then
+    mkdir build
+fi
 cd build
 
-# If it becomes a problem that you're sanitizing dependency libraries as well: http://clang.llvm.org/docs/SanitizerSpecialCaseList.html
+# If you get false positives due to errors in dependencies: http://clang.llvm.org/docs/SanitizerSpecialCaseList.html
+# More information here: https://docs.python.org/devguide/clang.html
 # Address Sanitizer
 if [ "$SAN" = "UA" ]; then
     echo "UNDEFINED AND ADDRESS SANITIZERS ON"
@@ -21,6 +14,7 @@ if [ "$SAN" = "UA" ]; then
     export CXXFLAGS="-fsanitize=address,undefined,undefined-trap,integer,unsigned-integer-overflow"
 fi
 
+# TODO: Get this working by following https://code.google.com/p/memory-sanitizer/wiki/LibcxxHowTo
 if [ "$SAN" = "M" ]; then
     echo "MEMORY SANITIZER ON"
     export CXXFLAGS="-fPIC -g -fsanitize=memory"
