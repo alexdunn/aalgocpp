@@ -10,9 +10,6 @@ if [ ! -d gtest-1.7.0 ]; then
 fi
 
 cd ..
-if [ -d build ]; then
-    rm -rf build
-fi
 mkdir build
 cd build
 
