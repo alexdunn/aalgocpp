@@ -6,9 +6,8 @@ This is a collection of algorithms written in C++14.  Many of the algorithms are
 
 ## Build
 - Install cmake with `brew install cmake`
-- Install the package manager bii with `brew cask install biicode`
-- From the repository's root directory: `bii init -L` to initialize the package manager
-- And finally configure and build: `CXX=clang++-3.6 CXXFLAGS="-std=c++14 -stdlib=libc++" bii build`
+- From the repository's root directory: `./build.sh`
+- The output binary will be at build/algorithmscpp
 
 You can clean the build products with `bii clean`
 

@@ -18,7 +18,7 @@ install: # Prepare system
     - sudo add-apt-repository 'deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu precise main'
     - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add -
     - sudo apt-get update -qq
-    - sudo apt-get install clang-3.6 libclang-common-3.6-dev libclang-3.6-dev libclang1-3.6 libllvm-3.6-ocaml-dev libllvm3.6 lldb-3.6 llvm-3.6 llvm-3.6-dev llvm-3.6-runtime lldb-3.6-dev
+    - sudo apt-get install clang-3.6 libclang1-3.6 libllvm3.6 llvm-3.6 llvm-3.6-runtime
 # Coveralls Code Coverage
     - sudo pip install cpp-coveralls
 # Build and install libc++
@@ -41,21 +41,15 @@ install: # Prepare system
     - sudo ln -s /usr/lib/libc++abi.so.1 /usr/lib/libc++abi.so
     - cd .. && sudo cp -r include/* /usr/include/c++/v1/
     - export CXX="clang++-3.6"
-# biicode package manager
-    - cd && wget http://apt.biicode.com/install.sh && chmod +x install.sh && ./install.sh
 # flawfinder C++ linter
     - sudo apt-get install flawfinder
 # Initialize  Project
     - cd $TRAVIS_BUILD_DIR
-    - bii init -L
-    - export CXXFLAGS="-std=c++14 -stdlib=libc++"
-    - export LDFLAGS="-lLLVMCore -lLLVMSupport $(llvm-config-3.6 --ldflags)"
 
 script: # Build and Test
-    - build_and_test() { bii clean; bii build -- VERBOSE=1; ./bin/algorithmscpp; }
+    - build_and_test() { rm -rf build; ./build.sh; ./build/algorithmscpp; }
 # Undefined and Address Sanitizers
     - export SAN="UA"
-    - export ASAN_OPTIONS="detect_leaks=1" # Enable leak sanitizer
     - build_and_test
     - ./lint_and_analyze.sh
 # Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
@@ -85,7 +79,6 @@ addons:
       name: "alexdunn/aalgocpp"
       description: "Build submitted via Travis CI"
     notification_email: worthless.trash.junk@icloud.com
-    build_command_prepend: "bii configure"
-    build_command:   "CXX=clang++-3.6 CXXFLAGS=\"-std=c++14 -stdlib=libc++\" bii build"
+    build_command:   "./build.sh"
     branch_pattern: coverity_scan
 

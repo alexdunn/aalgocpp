@@ -13,7 +13,7 @@ flags = [
     '-x',
     'c++',
     '-I',
-    'bii/deps/google/gtest/include',
+    'deps/gtest-1.7.0/include',
     '-I',
     'src',
 ]
