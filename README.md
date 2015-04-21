@@ -38,4 +38,4 @@ This project makes use of many tools to ensure code quality.  Because most of th
 - hfcca code complexity analyzer
 - pmd static analyzer and code duplication finder
 - Add some performance measurements
-
+- Facebook's flint
