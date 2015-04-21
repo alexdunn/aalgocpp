@@ -81,7 +81,7 @@ addons:
       name: "alexdunn/aalgocpp"
       description: "Build submitted via Travis CI"
     notification_email: worthless.trash.junk@icloud.com
-    build_command_prepend: "cov-configure --comptype clangcxx --compiler clang++-3.6; export CXXFLAGS='-std=c++11 -stdlib=libc++'; ./get_deps.sh; mkdir build; cd build; cmake .."
+    build_command_prepend: "cov-configure --comptype clangcxx --compiler clang++-3.6 --template; export CXXFLAGS='-std=c++11 -stdlib=libc++'; ./get_deps.sh; mkdir build; cd build; cmake .."
     build_command:   "make"
     branch_pattern: coverity_scan
 
