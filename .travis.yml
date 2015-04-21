@@ -62,6 +62,8 @@ script: # Build and Test
 
 after_success:
     - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'; fi
+    - if [ ${COVERITY_SCAN_BRANCH} == 1 ]; then cat build/cov-int/build-log.txt; fi
+    - if [ ${COVERITY_SCAN_BRANCH} == 1 ]; then cat build/cov-int/scm_log.txt; fi
 
 branches:
     only:
