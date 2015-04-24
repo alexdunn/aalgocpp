@@ -42,28 +42,28 @@ install: # Prepare system
     - cd .. && sudo cp -r include/* /usr/include/c++/v1/
     - export CXX="clang++-3.6"
 # flawfinder C++ linter
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then sudo apt-get install flawfinder; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then sudo apt-get install flawfinder; fi
 # Initialize  Project
     - cd $TRAVIS_BUILD_DIR
 
 script: # Build and Test
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then build_and_test() { rm -rf build; ./build.sh; ./build/algorithmscpp; }; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then build_and_test() { rm -rf build; ./build.sh; ./build/algorithmscpp; }; fi
 # Undefined and Address Sanitizers
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then export SAN="UA"; fi
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then build_and_test; fi
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./lint_and_analyze.sh; fi 
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then export SAN="UA"; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then build_and_test; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./lint_and_analyze.sh; fi 
 # Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
     #- export SAN="M"
     #- build_and_test
 # Thread Sanitizer
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then export SAN="T"; fi
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then export COVERAGE=true; fi
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then build_and_test; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then export SAN="T"; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then export COVERAGE=true; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then build_and_test; fi
 
 after_success:
-    - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then sudo pip install requests[security]; coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'; fi
-    - if [ ${COVERITY_SCAN_BRANCH} == 1 ]; then cat build/cov-int/build-log.txt; fi
-    - if [ ${COVERITY_SCAN_BRANCH} == 1 ]; then cat build/cov-int/scm_log.txt; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then sudo pip install requests[security]; coveralls -t 6EbYFzTh2DqoPYIqEOwchkuWCs6Nyr2cK -i $TRAVIS_BUILD_DIR/src/ -r $TRAVIS_BUILD_DIR --gcov-options '\-lp'; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat build/cov-int/build-log.txt; fi
+    - if [ "${COVERITY_SCAN_BRANCH}" == 1 ]; then cat build/cov-int/scm_log.txt; fi
 
 branches:
     only:
