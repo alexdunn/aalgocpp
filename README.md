@@ -31,11 +31,12 @@ This project makes use of many tools to ensure code quality.  Because most of th
 - clang-modernize = Ensure that new C++11 functionality is being used where possible.  I have to run this manually on my source files.
 
 ### Planned
-- Memory Sanitizer = I need to figure out how to apply the -fsanitize=memory flag to both dependencies and my targets, as well as link to an instrumented libc++, as well not build shared libraries
-- Coverity Scan = Code static analysis.  I need to get the running code up to 85% for the project to be accepted by Coverity Scan.
+- Memory Sanitizer = Build libc++ with -fsanitize=memory and link against that
+- Coverity Scan = Code static analysis.
 - OCLint static analyzer
 - splint static analyzer
 - hfcca code complexity analyzer
 - pmd static analyzer and code duplication finder
 - Add some performance measurements
 - Facebook's flint
+- [Undefined Behavior Canaries](https://github.com/regehr/ub-canaries)
