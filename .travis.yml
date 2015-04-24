@@ -20,7 +20,7 @@ install: # Prepare system
     - sudo apt-get update -qq
     - sudo apt-get install clang-3.6 libclang1-3.6 libllvm3.6 llvm-3.6 llvm-3.6-runtime
 # Coveralls Code Coverage
-    - sudo pip install cpp-coveralls
+    - if [ "${TRAVIS_BRANCH}" != "coverity_scan" ]; then sudo pip install cpp-coveralls; fi
 # Build and install libc++
     - cd
     - export CXXFLAGS="-std=c++0x -stdlib=libc++"
@@ -42,7 +42,7 @@ install: # Prepare system
     - cd .. && sudo cp -r include/* /usr/include/c++/v1/
     - export CXX="clang++-3.6"
 # flawfinder C++ linter
-    - if [ "${COVERITY_SCAN_BRANCH}" ]; then sudo apt-get install flawfinder; fi
+    - if [ "$TRAVIS_BRANCH" != "coverity_scan" ]; then sudo apt-get install flawfinder; fi
 # Initialize  Project
     - cd $TRAVIS_BUILD_DIR
 
@@ -81,7 +81,7 @@ addons:
       name: "alexdunn/aalgocpp"
       description: "Build submitted via Travis CI"
     notification_email: worthless.trash.junk@icloud.com
-    build_command_prepend: "export CXXFLAGS='-std=c++11 -stdlib=libc++'; cov-configure --comptype clangcxx --compiler clang++-3.6 --template; cat /tmp/coverity-scan-analysis/cov-analysis-linux64-7.6.0/config/coverity_config.xml; ./get_deps.sh; mkdir build; cd build; cmake .."
+    build_command_prepend: "export CXXFLAGS='-std=c++11 -stdlib=libc++'; cov-configure --comptype clangcxx --compiler clang++-3.6 --template; cat /tmp/coverity-scan-analysis/cov-analysis-linux64-7.6.0/config/template-clangcxx-config-0/coverity_config.xml; ./get_deps.sh; mkdir build; cd build; cmake .."
     build_command:   "make"
     branch_pattern: coverity_scan
 
