@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/alexdunn/aalgocpp.svg?branch=master)](https://travis-ci.org/alexdunn/aalgocpp)
+[![Build Status](https://travis-ci.org/xanderdunn/aalgocpp.svg?branch=coverity_scan)](https://travis-ci.org/xanderdunn/aalgocpp)
 [![Coverage Status](https://coveralls.io/repos/alexdunn/aalgocpp/badge.svg)](https://coveralls.io/r/alexdunn/aalgocpp)
 
 ## About
@@ -8,8 +8,6 @@ This is a collection of algorithms written in C++14.  Many of the algorithms are
 - Install cmake with `brew install cmake`
 - From the repository's root directory: `./build.sh`
 - The output binary will be at build/algorithmscpp
-
-You can clean the build products with `bii clean`
 
 ## Test
 Because this is simply a collection of algorithm implementations, executing the main binary `bin/algorithmscpp` will execute all the unit tests, presenting the results as it goes.
