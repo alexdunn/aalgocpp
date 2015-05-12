@@ -10,7 +10,7 @@ This is a collection of algorithms written in C++14.  Many of the algorithms are
 - The output binary will be at build/algorithmscpp
 
 ## Test
-Because this is simply a collection of algorithm implementations, executing the main binary `bin/algorithmscpp` will execute all the unit tests, presenting the results as it goes.
+Because this is simply a collection of algorithm implementations, executing the main binary `build/algorithmscpp` will execute all the unit tests, presenting the results as it goes.
 
 ## Tools
 This project makes use of many tools to ensure code quality.  Because most of them have been integrated into the continuous integration system, this list is intended to keep a list of them all so that it be periodically ensured that they are all still doing their job:
