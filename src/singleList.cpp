@@ -1,6 +1,6 @@
+#include <stdexcept>
 #include <vector>
 #include <iostream>
-#include <stdexcept>
 #include <sstream>
 #include "singleList.hpp"
 
@@ -27,7 +27,7 @@ bool listsEqual(ListNode* list1, ListNode* list2)
 {
     ListNode* currentNode1 = list1;
     ListNode* currentNode2 = list2;
-    while (currentNode1)
+    while (currentNode1 && currentNode2)
     {
         if (currentNode1->val != currentNode2->val)
         {
@@ -36,7 +36,7 @@ bool listsEqual(ListNode* list1, ListNode* list2)
         currentNode1 = currentNode1->next;
         currentNode2 = currentNode2->next;
     }
-    if (currentNode2)
+    if (currentNode1 || currentNode2) // They should both be exhausted if they are the same length
     {
         return false;
     }
@@ -51,13 +51,13 @@ ListNode* listFromVector(std::vector<int> vector)
     {
         if (!result)
         {
-            ListNode* newNode = new aalgo::ListNode(i);
+            auto    newNode = new aalgo::ListNode(i);
             result = newNode;
             currentNode = result;
         }
         else
         {
-            ListNode* newNode = new aalgo::ListNode(i);
+            auto    newNode = new aalgo::ListNode(i);
             currentNode->next = newNode;
             currentNode = newNode;
         }
@@ -67,7 +67,7 @@ ListNode* listFromVector(std::vector<int> vector)
 
 ListNode* copyList(ListNode* list)
 {
-    ListNode* result = new ListNode(list->val);
+    auto    result = new ListNode(list->val);
     ListNode* currentNode = result;
     ListNode* currentNodeToCopy = list->next;
     while (currentNodeToCopy)
@@ -89,23 +89,42 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists)
         throw std::invalid_argument(message.str());
     }
     ListNode* result = copyList(lists[0]);
-    ListNode* currentNodeToCopy = lists[0];
-    ListNode* currentSearchNode = result;
-    for (size_t i = 1; i < lists.size(); ++i)
+    ListNode* currentNodeToCopy;
+    ListNode* currentSearchNode;
+    ListNode* previousSearchNode;
+    for (size_t i = 1; i < lists.size(); i++)
     {
+        previousSearchNode = nullptr;
         currentSearchNode = result;
         currentNodeToCopy = lists[i];
         while (currentNodeToCopy)
         {
-            if ((currentNodeToCopy->val > currentSearchNode->val && currentNodeToCopy->val < currentSearchNode->next->val) || !currentSearchNode->next)
+            if (!currentSearchNode)   // At the end of the results lists, add it to the end
             {
-                ListNode* newNode = new ListNode(currentNodeToCopy->val);
-                newNode->next = currentSearchNode->next;
-                currentSearchNode->next = newNode;
+                auto  newNode = new ListNode(currentNodeToCopy->val);
                 currentNodeToCopy = currentNodeToCopy->next;
+                previousSearchNode->next = newNode;
+                previousSearchNode = newNode;
+            }
+            else if (currentNodeToCopy->val <= currentSearchNode->val)
+            {
+                auto  newNode = new ListNode(currentNodeToCopy->val);
+                currentNodeToCopy = currentNodeToCopy->next;
+                newNode->next = currentSearchNode;
+                if (previousSearchNode)
+                {
+                    previousSearchNode->next = newNode;
+                }
+                else
+                {
+                    // This becomes the first item in the list
+                    result = newNode;
+                }
+                previousSearchNode = newNode;
             }
             else
             {
+                previousSearchNode = currentSearchNode;
                 currentSearchNode = currentSearchNode->next;
             }
         }
@@ -113,6 +132,4 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists)
     return result;
 }
 
-// TODO: Find the majority element in an array in O(n*log(n))
-
-} // aalgo
+} // namespace aalgo

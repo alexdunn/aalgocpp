@@ -27,6 +27,4 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists);
 // Create a copy of the given list
 ListNode* copyList(ListNode* list);
 
-// TODO: Find the majority element in an array in O(n*log(n))
-
-} // aalgo
+} // namespace aalgo

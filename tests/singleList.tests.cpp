@@ -6,13 +6,10 @@ TEST(ListMerge, Test)
     std::vector<int> inputVector1 = {1, 4, 5, 9};
     std::vector<int> inputVector2 = {2, 6, 11, 100, 11234};
     std::vector<int> expectedVector = {1, 2, 4, 5, 6, 9, 11, 100, 11234};
-
     aalgo::ListNode* inputList1 = aalgo::listFromVector(inputVector1);
     aalgo::ListNode* inputList2 = aalgo::listFromVector(inputVector2);
     aalgo::ListNode* expectedList = aalgo::listFromVector(expectedVector);
-
     std::vector<aalgo::ListNode*> lists = {inputList1, inputList2};
-
     aalgo::ListNode* result = aalgo::mergeKLists(lists);
     EXPECT_TRUE(aalgo::listsEqual(result, expectedList)) << "Expected " << ::testing::PrintToString(expectedList) << "\nGot " << ::testing::PrintToString(result);
 
@@ -25,6 +22,20 @@ TEST(ListMerge, Test)
 
     lists = {inputList1};
     ASSERT_THROW(aalgo::mergeKLists(lists), std::invalid_argument);
+
+    inputVector1 = {3, 3, 3, 3};
+    inputVector2 = {4, 4, 4};
+    expectedVector = {3, 3, 3, 3, 4, 4, 4};
+    inputList1 = aalgo::listFromVector(inputVector1);
+    inputList2 = aalgo::listFromVector(inputVector2);
+    expectedList = aalgo::listFromVector(expectedVector);
+    lists = {inputList1, inputList2};
+    result = aalgo::mergeKLists(lists);
+    EXPECT_TRUE(aalgo::listsEqual(result, expectedList)) << "Expected " << ::testing::PrintToString(expectedList) << "\nGot " << ::testing::PrintToString(result);
+
+    lists = {inputList2, inputList1};
+    result = aalgo::mergeKLists(lists);
+    EXPECT_TRUE(aalgo::listsEqual(result, expectedList)) << "Expected " << ::testing::PrintToString(expectedList) << "\nGot " << ::testing::PrintToString(result);
 }
 
 TEST(ListCopy, Test)

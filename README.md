@@ -32,7 +32,6 @@ This project makes use of many tools to ensure code quality.  Because most of th
 - Memory Sanitizer = Build libc++ with -fsanitize=memory and link against that
 - Coverity Scan = Code static analysis.
 - OCLint static analyzer
-- splint static analyzer
 - hfcca code complexity analyzer
 - pmd static analyzer and code duplication finder
 - Add some performance measurements
