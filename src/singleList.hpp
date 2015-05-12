@@ -8,23 +8,23 @@ namespace aalgo
 struct ListNode
 {
     int val;
-    ListNode *next;
+    std::shared_ptr<ListNode> next;
     ListNode(int x) : val(x), next(NULL) {}
 };
 
 // This is a convenience method for testing.  That creates a singly linked list with the values of the given vector.
-ListNode* listFromVector(std::vector<int> vector);
+std::shared_ptr<ListNode> listFromVector(std::vector<int> vector);
 
 // Check that the values of the two given linked list are the same.
-bool listsEqual(ListNode* list1, ListNode* list2);
+bool listsEqual(std::shared_ptr<ListNode> list1, std::shared_ptr<ListNode> list2);
 
 // Make ListNode std::cout compatible
-std::ostream& operator<<(std::ostream &os, ListNode* const &list);
+std::ostream& operator<<(std::ostream &os, std::shared_ptr<ListNode> const &list);
 
 // Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
-ListNode* mergeKLists(std::vector<ListNode*>& lists);
+std::shared_ptr<ListNode> mergeKLists(std::vector<std::shared_ptr<ListNode>>& lists);
 
 // Create a copy of the given list
-ListNode* copyList(ListNode* list);
+std::shared_ptr<ListNode> copyList(std::shared_ptr<ListNode> list);
 
 } // namespace aalgo

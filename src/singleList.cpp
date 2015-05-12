@@ -7,9 +7,9 @@
 namespace aalgo
 {
 
-std::ostream& operator<<(std::ostream &os, ListNode* const &list)
+std::ostream& operator<<(std::ostream &os, std::shared_ptr<ListNode> const &list)
 {
-    ListNode* currentNode = list;
+    auto currentNode = list;
     std::string outputString = "";
     while (currentNode)
     {
@@ -23,10 +23,10 @@ std::ostream& operator<<(std::ostream &os, ListNode* const &list)
     return os << "ListNode(" << outputString << ")";
 }
 
-bool listsEqual(ListNode* list1, ListNode* list2)
+bool listsEqual(std::shared_ptr<ListNode> list1, std::shared_ptr<ListNode> list2)
 {
-    ListNode* currentNode1 = list1;
-    ListNode* currentNode2 = list2;
+    auto currentNode1 = list1;
+    auto currentNode2 = list2;
     while (currentNode1 && currentNode2)
     {
         if (currentNode1->val != currentNode2->val)
@@ -43,21 +43,22 @@ bool listsEqual(ListNode* list1, ListNode* list2)
     return true;
 }
 
-ListNode* listFromVector(std::vector<int> vector)
+std::shared_ptr<ListNode> listFromVector(std::vector<int> vector)
 {
-    ListNode* result = nullptr;
-    ListNode* currentNode = nullptr;
+    std::shared_ptr<ListNode> result = nullptr;
+    std::shared_ptr<ListNode> currentNode = nullptr;
     for (auto i : vector)
     {
+        std::shared_ptr<ListNode> newNode;
         if (!result)
         {
-            auto    newNode = new aalgo::ListNode(i);
+            newNode = std::make_shared<ListNode>(i);
             result = newNode;
             currentNode = result;
         }
         else
         {
-            auto    newNode = new aalgo::ListNode(i);
+            newNode = std::make_shared<ListNode>(i);
             currentNode->next = newNode;
             currentNode = newNode;
         }
@@ -65,14 +66,14 @@ ListNode* listFromVector(std::vector<int> vector)
     return result;
 }
 
-ListNode* copyList(ListNode* list)
+std::shared_ptr<ListNode> copyList(std::shared_ptr<ListNode> list)
 {
-    auto    result = new ListNode(list->val);
-    ListNode* currentNode = result;
-    ListNode* currentNodeToCopy = list->next;
+    auto result = std::make_shared<ListNode>(list->val);
+    auto currentNode = result;
+    auto currentNodeToCopy = list->next;
     while (currentNodeToCopy)
     {
-        currentNode->next = new ListNode(currentNodeToCopy->val);
+        currentNode->next = std::make_shared<ListNode>(currentNodeToCopy->val);
         currentNode = currentNode->next;
         currentNodeToCopy = currentNodeToCopy->next;
     }
@@ -80,7 +81,7 @@ ListNode* copyList(ListNode* list)
 }
 
 // Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
-ListNode* mergeKLists(std::vector<ListNode*>& lists)
+std::shared_ptr<ListNode> mergeKLists(std::vector<std::shared_ptr<ListNode>>& lists)
 {
     if (lists.size() < 2)
     {
@@ -88,10 +89,10 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists)
         message << "Not enough ListNodes were provided for merging.";
         throw std::invalid_argument(message.str());
     }
-    ListNode* result = copyList(lists[0]);
-    ListNode* currentNodeToCopy;
-    ListNode* currentSearchNode;
-    ListNode* previousSearchNode;
+    auto result = copyList(lists[0]);
+    std::shared_ptr<ListNode> currentNodeToCopy;
+    std::shared_ptr<ListNode> currentSearchNode;
+    std::shared_ptr<ListNode> previousSearchNode;
     for (size_t i = 1; i < lists.size(); i++)
     {
         previousSearchNode = nullptr;
@@ -101,14 +102,14 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists)
         {
             if (!currentSearchNode)   // At the end of the results lists, add it to the end
             {
-                auto  newNode = new ListNode(currentNodeToCopy->val);
+                auto newNode = std::make_shared<ListNode>(currentNodeToCopy->val);
                 currentNodeToCopy = currentNodeToCopy->next;
                 previousSearchNode->next = newNode;
                 previousSearchNode = newNode;
             }
             else if (currentNodeToCopy->val <= currentSearchNode->val)
             {
-                auto  newNode = new ListNode(currentNodeToCopy->val);
+                auto newNode = std::make_shared<ListNode>(currentNodeToCopy->val);
                 currentNodeToCopy = currentNodeToCopy->next;
                 newNode->next = currentSearchNode;
                 if (previousSearchNode)
