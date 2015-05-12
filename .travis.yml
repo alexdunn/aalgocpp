@@ -51,7 +51,6 @@ script: # Build and Test
 # Undefined and Address Sanitizers
     - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then export SAN="UA"; fi
     - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then build_and_test; fi
-    - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./lint_and_analyze.sh; fi 
 # Memory Sanitizer: Temporarily disabled because it's difficult to build the standard libraries with -fsanitize=memory
     #- export SAN="M"
     #- build_and_test
