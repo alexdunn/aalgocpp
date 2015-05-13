@@ -69,3 +69,14 @@ TEST(ListEquality, Test)
     EXPECT_FALSE(aalgo::listsEqual(inputList4, inputList1)) << "Expected " << inputList4 << " to NOT equal " << inputList1;
 }
 
+TEST(ListNode, StreamOperator)
+{
+    auto inputVector1 = {4, 1, 6, 3, 3, 1, 9};
+    auto inputList1 = aalgo::listFromVector(inputVector1);
+
+    std::stringstream buffer;
+    buffer << inputList1;
+    std::string expected = "ListNode(4, 1, 6, 3, 3, 1, 9)";
+    std::string result = buffer.str();
+    EXPECT_TRUE(result.compare(expected) == 0) << "Expected |" << expected << "|\nGot |" << result << "|";
+}
