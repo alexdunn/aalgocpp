@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/xanderdunn/aalgocpp.svg?branch=coverity_scan)](https://travis-ci.org/xanderdunn/aalgocpp)
-[![Coverage Status](https://coveralls.io/repos/alexdunn/aalgocpp/badge.svg)](https://coveralls.io/r/alexdunn/aalgocpp)
+[![Coverage Status](https://coveralls.io/repos/xanderdunn/aalgocpp/badge.svg?branch=master)](https://coveralls.io/r/xanderdunn/aalgocpp?branch=master)
 
 ## About
 This is a collection of algorithms written in C++14.  Many of the algorithms are from the textbook *The Algorithm Design Manual*.
